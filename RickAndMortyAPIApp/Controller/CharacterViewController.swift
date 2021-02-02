@@ -21,7 +21,7 @@ class CharacterViewController: UIViewController, UICollectionViewDelegate {
         collectionView.dataSource = photoDataSource
         collectionView.delegate = self
         
-        store.fetchInterestingPhotos {
+        store.fetchCharacterPhotos {
             (photosResult) in
             
             switch photosResult {

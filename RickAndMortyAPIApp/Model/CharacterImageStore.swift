@@ -22,9 +22,9 @@ class CharacterImageSore {
         return URLSession(configuration: config)
     }()
     
-    func fetchInterestingPhotos(completion: @escaping (Result<[Character], Error>) -> Void) {
+    func fetchCharacterPhotos(completion: @escaping (Result<[Character], Error>) -> Void) {
         
-        let url = RickAndMortyAPI.interestingPhotosURL
+        let url = RickAndMortyAPI.characterPhotosURL
         let request = URLRequest(url: url)
         let task = session.dataTask(with: request) {
             (data, response, error) in

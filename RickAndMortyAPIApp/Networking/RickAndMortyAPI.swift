@@ -20,7 +20,7 @@ struct RickAndMortyAPI {
     
     private static let baseURLString = "https://rickandmortyapi.com/api/character"
     
-    private static func flickrURL() -> URL {
+    private static func rickandmortyURL() -> URL {
         
         let components = URLComponents(string: baseURLString)!
         
@@ -28,22 +28,15 @@ struct RickAndMortyAPI {
     }
     
     
-    static var interestingPhotosURL: URL {
-        return flickrURL()
+    static var characterPhotosURL: URL {
+        return rickandmortyURL()
     }
     
     static func photos(fromJSON data: Data) -> Result<[Character], Error> {
         do {
             let decoder = JSONDecoder()
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
-            dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
-            decoder.dateDecodingStrategy = .formatted(dateFormatter)
-            
-            let flickrResponse = try decoder.decode(CharacterResponse.self, from: data)
-            let photos = flickrResponse.photos.filter { $0.remoteURL != nil }
+            let charactersAPIResponse = try decoder.decode(CharacterResponse.self, from: data)
+            let photos = charactersAPIResponse.photos.filter { $0.remoteURL != nil }
             
             return .success(photos)
         } catch let error {
